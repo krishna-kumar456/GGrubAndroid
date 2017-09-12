@@ -52,10 +52,10 @@ public class ImageRequester {
 
         String date = mDateFormat.format(mCalendar.getTime());
 
-        //String urlRequest = BASE_URL + DATE_PARAMETER + date + API_KEY_PARAMETER +
-                //mContext.getString(R.string.nasa_api_key);
+        String urlRequest = BASE_URL + DATE_PARAMETER + date + API_KEY_PARAMETER +
+                mContext.getString(R.string.nasa_api_key);
 
-        String urlRequest = "https://api.nasa.gov/planetary/apod?date=2017-09-09&api_key=HJjYQJaac7XUesfl8dKwKYUrQqi7yTUnJPCBgwWq";
+        //String urlRequest = "https://api.nasa.gov/planetary/apod?date=2017-09-09&api_key=HJjYQJaac7XUesfl8dKwKYUrQqi7yTUnJPCBgwWq";
         Log.d("ggrub", "urlRequest " + urlRequest);
         Request request = new Request.Builder().url(urlRequest).build();
         mLoadingData = true;
