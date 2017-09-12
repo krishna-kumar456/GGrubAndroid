@@ -1,0 +1,8 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <mapping pattern="righttoleft" type="XML" />
+      <mapping pattern="lefttoright" type="XML" />
+    </extensionMap>
+  </component>
+</application>
