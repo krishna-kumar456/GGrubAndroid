@@ -1,5 +1,6 @@
 package com.example.redfruit.gamersgrub;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -83,6 +84,7 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+
     }
 
 
@@ -126,6 +128,16 @@ public class Login extends AppCompatActivity {
         LoginManager.getInstance().logOut();
         FirebaseAuth.getInstance().signOut();
     }
+
+    public String getUser() {
+        return mAuth.getInstance().getCurrentUser().getDisplayName();
+    }
+
+    public String getUserID() {
+        return mAuth.getInstance().getCurrentUser().getUid();
+    }
+
+    public Uri getUri() { return mAuth.getInstance().getCurrentUser().getPhotoUrl(); }
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d("ggrub", "handleFacebookAccessToken:" + token);

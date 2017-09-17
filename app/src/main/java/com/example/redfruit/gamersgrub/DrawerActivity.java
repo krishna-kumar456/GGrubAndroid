@@ -1,9 +1,11 @@
 package com.example.redfruit.gamersgrub;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,12 +15,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.login.widget.ProfilePictureView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 import static com.example.redfruit.gamersgrub.R.id.imageView;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView userName;
+    private TextView gamerID;
+    private ImageView profilePic;
+    private Button editProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +68,9 @@ public class DrawerActivity extends AppCompatActivity
 
 
 
+
+
+
         drawer.setOnTouchListener(new OnSwipeListener(DrawerActivity.this) {
             public void onSwipeTop() {
                 Toast.makeText(DrawerActivity.this, "top", Toast.LENGTH_SHORT).show();
@@ -72,6 +92,9 @@ public class DrawerActivity extends AppCompatActivity
 
         });
 
+
+
+
     }
 
     @Override
@@ -88,6 +111,49 @@ public class DrawerActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.drawer, menu);
+        userName = (TextView) findViewById(R.id.username);
+        profilePic = (ImageView) findViewById(R.id.profilepic);
+
+        Login lg = new Login();
+        String userN = lg.getUser();
+        String userID = lg.getUserID();
+        Uri fbPic = lg.getUri();
+
+
+        if (userN.equals("null")) {
+            userName.setText("Default User");
+
+        }
+
+        else {
+
+            Log.d("ggrub", "Facebook UserID" + userID);
+            userName.setText(userN);
+            Picasso.with(this)
+                    .load(fbPic) //extract as User instance method
+                    .transform(new CropCircleTransformation())
+                    .resize(120, 120)
+                    .into(profilePic);
+
+
+
+        }
+
+        editProfile = (Button) findViewById(R.id.Edit);
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toeditProfile = new Intent(DrawerActivity.this, EditProfile.class);
+                startActivity(toeditProfile);
+            }
+        });
+
+
+
+
+
+
         return true;
     }
 

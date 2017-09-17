@@ -17,14 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".DrawerActivity"
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
-
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -43,7 +40,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
@@ -64,12 +60,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Maps"
             android:label="@string/title_activity_maps">
         </activity>
-
         <activity
             android:name=".Event"
             android:label="@string/title_activity_event"
@@ -81,6 +75,8 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".Infocard">
+        </activity>
+        <activity android:name=".EditProfile">
         </activity>
     </application>
 

@@ -23,7 +23,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoH
     public static class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView mItemImage;
-        private TextView mItemDate;
+        private TextView mItemTitle;
         private TextView mItemDescription;
         private Photo mPhoto;
 
@@ -35,24 +35,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PhotoH
             super(v);
 
             mItemImage = (ImageView) v.findViewById(R.id.item_image);
-            mItemDate = (TextView) v.findViewById(R.id.item_date);
+            mItemTitle = (TextView) v.findViewById(R.id.item_date);
             mItemDescription = (TextView) v.findViewById(R.id.item_description);
             v.setOnClickListener(this);
         }
 
-        //5
+
         @Override
         public void onClick(View v) {
             Context context = itemView.getContext();
             Intent showPhotoIntent = new Intent(context, Event.class);
+            showPhotoIntent.putExtra("PHOTO", mPhoto);
             context.startActivity(showPhotoIntent);
         }
 
         public void bindPhoto(Photo photo) {
             mPhoto = photo;
-            Picasso.with(mItemImage.getContext()).load(photo.getUrl()).into(mItemImage);
-            mItemDate.setText(photo.getHumanDate());
-            mItemDescription.setText(photo.getExplanation());
+            Picasso.with(mItemImage.getContext()).load(photo.getImage()).into(mItemImage);
+            mItemTitle.setText(photo.getTitle());
+            mItemDescription.setText(photo.getDesc());
         }
     }
 

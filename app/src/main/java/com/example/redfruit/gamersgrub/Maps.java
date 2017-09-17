@@ -99,8 +99,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
     public void onStart() {
         super.onStart();
 
-        // Add value event listener to the post
-        // [START post_value_event_listener]
+
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -120,6 +119,7 @@ public class Maps extends FragmentActivity implements OnMapReadyCallback,
 
             }
         };
+
         mDatabase.addValueEventListener(postListener);
 
         mDBListener = postListener;
