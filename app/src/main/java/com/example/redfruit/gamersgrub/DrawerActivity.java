@@ -23,10 +23,21 @@ import android.widget.Toast;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
+
+import java.util.Dictionary;
+import java.util.Map;
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
+import static com.example.redfruit.gamersgrub.R.id.gamername;
 import static com.example.redfruit.gamersgrub.R.id.imageView;
 
 public class DrawerActivity extends AppCompatActivity
@@ -36,6 +47,11 @@ public class DrawerActivity extends AppCompatActivity
     private TextView gamerID;
     private ImageView profilePic;
     private Button editProfile;
+    private DatabaseReference mDatabase;
+    private ValueEventListener mDBListener;
+    private String gamerName;
+
+    Login lg = new Login();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +84,10 @@ public class DrawerActivity extends AppCompatActivity
 
 
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("profile");
+
+
+
 
 
 
@@ -97,6 +117,62 @@ public class DrawerActivity extends AppCompatActivity
 
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+//
+//
+//                Profile profile = userP;
+//
+//                Log.d("ggrub", "Reading data from database within DrawerActivity" + profile);
+//                gamerName = profile.getGamerName();
+//                Log.d("ggrub", "gamerName" + gamerName);
+
+
+
+                for(DataSnapshot child : dataSnapshot.getChildren())
+                {
+                    Log.d("ggrub", "child" + child);
+
+                    Profile userP = child.getValue(Profile.class);
+
+
+
+                    Log.d("ggrub", "UserP GamerName" + userP.getGamerName());
+                    gamerName = userP.getGamerName();
+
+                    gamerID = (TextView) findViewById(R.id.gamername);
+                    gamerID.setText(gamerName);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("ggrub", "profile:onCancelled", databaseError.toException());
+
+                Toast.makeText(DrawerActivity.this, "Failed to load post.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        };
+
+        mDatabase.addValueEventListener(postListener);
+
+        mDBListener = postListener;
+
+
+
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -112,9 +188,10 @@ public class DrawerActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.drawer, menu);
         userName = (TextView) findViewById(R.id.username);
+
         profilePic = (ImageView) findViewById(R.id.profilepic);
 
-        Login lg = new Login();
+
         String userN = lg.getUser();
         String userID = lg.getUserID();
         Uri fbPic = lg.getUri();
@@ -123,12 +200,18 @@ public class DrawerActivity extends AppCompatActivity
         if (userN.equals("null")) {
             userName.setText("Default User");
 
+
         }
 
         else {
 
             Log.d("ggrub", "Facebook UserID" + userID);
+
             userName.setText(userN);
+
+
+
+
             Picasso.with(this)
                     .load(fbPic) //extract as User instance method
                     .transform(new CropCircleTransformation())
@@ -200,6 +283,12 @@ public class DrawerActivity extends AppCompatActivity
     @Override
     public void onStop(){
         super.onStop();
+
+        // Remove post value event listener
+        if (mDBListener != null) {
+            mDatabase.removeEventListener(mDBListener);
+        }
+
         finish();
     }
 }
