@@ -78,6 +78,12 @@
         </activity>
         <activity android:name=".EditProfile">
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
+        <activity android:name=".AboutUs">
+        </activity>
     </application>
 
 </manifest>

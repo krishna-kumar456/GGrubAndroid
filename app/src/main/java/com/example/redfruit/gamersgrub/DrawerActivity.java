@@ -127,15 +127,6 @@ public class DrawerActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-//
-//
-//                Profile profile = userP;
-//
-//                Log.d("ggrub", "Reading data from database within DrawerActivity" + profile);
-//                gamerName = profile.getGamerName();
-//                Log.d("ggrub", "gamerName" + gamerName);
-
-
 
                 for(DataSnapshot child : dataSnapshot.getChildren())
                 {
@@ -261,17 +252,29 @@ public class DrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_settings) {
+            Intent goSettings = new Intent(DrawerActivity.this, SettingsActivity.class);
+            startActivity(goSettings);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_aboutus) {
+            Intent goAboutus = new Intent(DrawerActivity.this, AboutUs.class);
+            startActivity(goAboutus);
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        }
+          else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+            final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"to@email.com"});
+            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
+            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Text");
+
+
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 
         }
 
