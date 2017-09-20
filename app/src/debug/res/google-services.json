@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "527687572025",
+    "firebase_url": "https://gamersgrub-9d5b3.firebaseio.com",
+    "project_id": "gamersgrub-9d5b3",
+    "storage_bucket": "gamersgrub-9d5b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527687572025:android:6e486855da121df9",
+        "android_client_info": {
+          "package_name": "com.example.redfruit.gamersgrub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527687572025-s13a4pnav388ano7ke3m38csukf07rvn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.redfruit.gamersgrub",
+            "certificate_hash": "e3b160abbbfb71a4cbaccd36b44fbf9c0a960251"
+          }
+        },
+        {
+          "client_id": "527687572025-ubib0ccodkmpp7n29uc2t1p4tk0q0isj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrGR1CRodOADMLWXgGFaVW_M296BGW9Qc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527687572025-ubib0ccodkmpp7n29uc2t1p4tk0q0isj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
